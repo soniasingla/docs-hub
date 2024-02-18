@@ -1,4 +1,3 @@
-/* ANCHOR: contract-test-all */
 use fuels::{prelude::*, types::ContractId};
 
 // Load abi from json
@@ -23,7 +22,7 @@ async fn get_contract_instance() -> (MyContract<WalletUnlocked>, ContractId) {
     let wallet = wallets.pop().unwrap();
 
     let id = Contract::load_from(
-        "./out/debug/counter-contract.bin",
+        "out/debug/counter-contract.bin",
         LoadConfiguration::default(),
     )
     .unwrap()
@@ -36,14 +35,6 @@ async fn get_contract_instance() -> (MyContract<WalletUnlocked>, ContractId) {
     (instance, id.into())
 }
 
-#[tokio::test]
-async fn can_get_contract_id() {
-    let (_instance, _id) = get_contract_instance().await;
-
-    // Now you have an instance of your contract you can use to test each function
-}
-
-// ANCHOR: contract-test
 #[tokio::test]
 async fn test_increment() {
     let (instance, _id) = get_contract_instance().await;
@@ -58,5 +49,37 @@ async fn test_increment() {
     // Recall that the initial value of the counter was 0.
     assert_eq!(result.value, 1);
 }
-// ANCHOR_END: contract-test
-/* ANCHOR_END: contract-test-all */
+
+#[tokio::test]
+async fn test_decrement() {
+    let (instance, _id) = get_contract_instance().await;
+
+    // Increment the counter
+    instance.methods().increment().call().await.unwrap();
+
+    // Decrement the counter
+    instance.methods().decrement().call().await.unwrap();
+
+    // Get the current value of the counter
+    let result = instance.methods().count().call().await.unwrap();
+
+    // Check if the current value of the counter is 0 after decrementing
+    assert_eq!(result.value, 0);
+}
+
+#[tokio::test]
+async fn test_reset() {
+    let (instance, _id) = get_contract_instance().await;
+
+    // Increment the counter
+    instance.methods().increment().call().await.unwrap();
+
+    // Reset the counter
+    instance.methods().reset().call().await.unwrap();
+
+    // Get the current value of the counter
+    let result = instance.methods().count().call().await.unwrap();
+
+    // Check if the current value of the counter is 0 after resetting
+    assert_eq!(result.value, 0);
+}

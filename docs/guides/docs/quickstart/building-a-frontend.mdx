@@ -8,6 +8,12 @@ parent:
 
 # Building a Frontend to Interact With Your Contract
 
+In this guide, you will be building the frontend application for the counter contract project with the following features:
+
+* **Wallet Connectivity**: Users can seamlessly connect and disconnect their Fuel Wallet with the counter React app, facilitating secure interaction with the blockchain.
+* **Account Balance Display**: After connection, the users can view their account balance within the app interface.
+* **Counter Controls**: Users will have buttons to increment, decrement, or reset the counter, enabling dynamic interaction with the smart contract.
+
 To build a frontend application for the counter contract, we'll do the following:
 
 1. [**Install the Fuel Browser Wallet.**](#install-the-fuel-browser-wallet)
@@ -291,7 +297,29 @@ action={{
 />
 </ConditionalContent>
 
-Finally, replace the value of the `CONTRACT_ID` variable at the top of your `App.tsx` file with the address of the contract you just deployed.
+Now let's take a moment to review the above code.
+
+The code imports various modules from different libraries to manage the component state, connect to a wallet, and retrieve account balance from the wallet.
+
+* `useEffect` and `useState` are React hooks used for managing side effects and component states, respectively. They are essential for building functional components in React.
+* `useConnectUI`, `useIsConnected`, `useWallet`, and `useDisconnect` are hooks provided by the `@fuel-wallet/react` library that allow users to interact with the wallet and retrieve account balance.
+* `CounterContractAbi__factory` and `CounterContractAbi` are imported from `./sway-api` and represent the contract factory and ABI respectively, enabling interaction with the deployed smart contract.
+
+Next, replace the value of the `CONTRACT_ID` variable at the top of your `App.tsx` file with the address of the contract you just deployed. Now, let's review the contract's functionality:
+
+* **getInitialCount**: The `getInitialCount` function fetches the initial count and account balance when the component mounts or there's a change in wallet information.
+
+* **getCount**: The `getCount` function retrieves the current count value from the smart contract.
+
+* **getAccountBalance**: The `getAccountBalance` function fetches the account balance from the wallet using the `getBalance()` method and updates the component's state with the fetched value.
+
+* **onIncrementPressed**: The `onIncrementPressed` function handles the logic for incrementing the counter value in the smart contract. First, it checks if the contract instance is available; if not, it displays the error stating "Contract not loaded", otherwise it increments the counter and updates it accordingly.
+
+* **onDecrementPressed**: The `onDecrementPressed` function handles the logic for decrementing the counter value in the smart contract. First, it checks if the contract instance is available; if not, it displays the error stating "Contract not loaded". Then, it fetches the current count and checks if it's already at 0; if so, it alerts "Count cannot be negative" otherwise, it decrements the count and updates it accordingly.
+
+* **onResetPressed**: The `onResetPressed` function handles the logic for resetting the counter value in the smart contract. First, it checks if the contract instance is available; if not, it displays the error stating "Contract not loaded", otherwise it resets the counter to 0.
+
+The remaining code renders UI elements based on the connection status and fetched data. It includes buttons for connecting and disconnecting the wallet, displaying the account balance, and interacting with the counter. There are also some custom CSS for styling the components to make the counter React application look good.
 
 <TestAction
 id="app-contract-id"
@@ -334,10 +362,10 @@ To create a production build, use npm run build.
 
 <ConditionalContent versionSet={props.versionSet} showForVersions={['default', 'nightly']}>
 Click the "Connect" button and select "Fuel Wallet Development" to connect your wallet.
-Once connected, you should see the counter value and increment button:
+Once connected, you should see the account balance, counter value and the counter interaction buttons (increment, decrement and reset):
 
 <Box.Centered>
-![screenshot of the UI](/images/quickstart-frontend.png)
+![screenshot of the UI](/images/quickstart-frontend-updated.png)
 </Box.Centered>
 </ConditionalContent>
 
@@ -365,17 +393,17 @@ Once you're ready to redeploy your contract to the testnet, here are the steps y
 
 <ConditionalContent versionSet={props.versionSet} showForVersions={['default', 'nightly']}>
 
-- In your frontend directory, re-run this command: `npx fuels build`.
-- In your contract directory, redeploy the contract by running this command and following the same steps as above to sign the transaction with your wallet: `forc deploy --testnet`.
-- In your frontend directory, update the contract ID in your `App.tsx` file.
+* In your frontend directory, re-run this command: `npx fuels build`.
+* In your contract directory, redeploy the contract by running this command and following the same steps as above to sign the transaction with your wallet: `forc deploy --testnet`.
+* In your frontend directory, update the contract ID in your `App.tsx` file.
 </ConditionalContent>
 
 <ConditionalContent versionSet={props.versionSet} showForVersions={['beta-4']}>
 
-- In your contract directory, run `forc build`
-- In your contract directory, redeploy the contract by running this command and following the same steps as above to sign the transaction with your wallet: `forc deploy --node-url https://beta-4.fuel.network/graphql --gas-price 1`
-- In your frontend directory, re-run this command: `npx fuels typegen -i ../counter-contract/out/debug/*-abi.json -o ./src/contracts`
-- In your frontend directory, update the contract ID in your `App.tsx` file
+* In your contract directory, run `forc build`
+* In your contract directory, redeploy the contract by running this command and following the same steps as above to sign the transaction with your wallet: `forc deploy --node-url https://beta-4.fuel.network/graphql --gas-price 1`
+* In your frontend directory, re-run this command: `npx fuels typegen -i ../counter-contract/out/debug/*-abi.json -o ./src/contracts`
+* In your frontend directory, update the contract ID in your `App.tsx` file
 </ConditionalContent>
 
 ## Need Help?
@@ -394,7 +422,7 @@ action={{
 id="go-to-frontend"
 action={{
   name: 'goToUrl',
-  url: "http://localhost:4000"
+  url: "<http://localhost:4000>"
 }}
 />
 
