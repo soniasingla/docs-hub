@@ -2,6 +2,8 @@
 
 For this assignment, I've chosen to work on the Frontend React project. The initial version of the project only allowed users to increase the counter. However, in the updated version, I've added features like decreasing the counter, resetting it to zero, checking the account balance, and providing an option to disconnect from the wallet.
 
+<img width="1440" alt="Screenshot 2024-02-18 at 22 29 14" src="https://github.com/soniasingla/docs-hub/assets/33036742/0257ac25-9c10-4500-bd83-ddb1e0dc7316">
+
 ## Implementation Approach
 
 Before adding new features, it was important to fully understand how the Counter DApp's existing architecture works. This involved understanding both the Counter Contract and frontend components to understand how the original counter functionality was implemented.
