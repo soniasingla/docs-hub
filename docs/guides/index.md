@@ -17,11 +17,11 @@ In this assignment, I have added the following features to the frontend of Count
 
 ## Significant changes
 
-* **Smart Contract Modification**: To add the functionality of decrementing and resetting the counter to 0, new functions are added to the Counter Contract in the [docs/guides/examples/quickstart/counter-contract/src/main.sw](docs/guides/examples/quickstart/counter-contract/src/main.sw) file.
+* **Smart Contract Modification**: To add the functionality of decrementing and resetting the counter to 0, new functions are added to the Counter Contract in the [examples/quickstart/counter-contract/src/main.sw](examples/quickstart/counter-contract/src/main.sw) file.
 
-* **Test Cases**: Test cases for decrementing and resetting the counter were implemented and added to the [docs/guides/examples/quickstart/counter-contract/tests/harness.rs](docs/guides/examples/quickstart/counter-contract/tests/harness.rs) file. 
+* **Test Cases**: Test cases for decrementing and resetting the counter were implemented and added to the [examples/quickstart/counter-contract/tests/harness.rs](examples/quickstart/counter-contract/tests/harness.rs) file. 
 
-* **Frontend Integration**: After updating the smart contract, the next step was to integrate the new features into the frontend interface. This involved adding user interface elements for wallet disconnect, decrementing the counter, and reseting the counter to 0, allowing users to interact with the improved counter functionality. For changes, refer to the [docs/guides/examples/quickstart/frontend/src/App.tsx](docs/guides/examples/quickstart/frontend/src/App.tsx) file.
+* **Frontend Integration**: After updating the smart contract, the next step was to integrate the new features into the frontend interface. This involved adding user interface elements for wallet disconnect, decrementing the counter, and reseting the counter to 0, allowing users to interact with the improved counter functionality. For changes, refer to the [examples/quickstart/frontend/src/App.tsx](examples/quickstart/frontend/src/App.tsx) file.
 
 ## Updated Documentation: Building a Frontend to Interact With Your Contract
 
